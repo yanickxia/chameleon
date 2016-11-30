@@ -3,9 +3,7 @@ package info.yannxia.java.chameleon;
 import info.yannxia.java.chameleon.annonation.Convertor;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Type;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -46,9 +44,13 @@ public class ConvertFactoryImpl implements ConvertFactory {
                                 Class from = method.getParameterTypes()[0];
                                 Class to = method.getReturnType();
                                 ConvertKey convertKey = new ConvertKey(from, to);
-                                CovertInstant covertInstant = new CovertInstant(clazz, method);
-
-                                convertFactory.keyCovertInstantConcurrentHashMap.put(convertKey, covertInstant);
+                                CovertInstant covertInstant = null;
+                                try {
+                                    covertInstant = new CovertInstant(clazz.newInstance(), clazz, method);
+                                    convertFactory.keyCovertInstantConcurrentHashMap.put(convertKey, covertInstant);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             });
                 });
 
@@ -56,45 +58,4 @@ public class ConvertFactoryImpl implements ConvertFactory {
     }
 }
 
-
-class ConvertKey {
-    Class from;
-    Class to;
-
-    public ConvertKey(Class from, Class to) {
-        this.from = from;
-        this.to = to;
-    }
-
-    @Override
-    public int hashCode() {
-        return from.getName().hashCode() & to.getName().hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof ConvertKey) {
-            return ((ConvertKey) obj).from.getName().equals(((ConvertKey) obj).from.getName());
-        }
-
-        return super.equals(obj);
-    }
-}
-
-class CovertInstant {
-    Object convertObj;
-    Class convert;
-    Method covertMethod;
-
-    public CovertInstant(Class convert, Method covertMethod) {
-        this.convert = convert;
-        this.covertMethod = covertMethod;
-    }
-
-    public CovertInstant(Object convertObj, Class convert, Method covertMethod) {
-        this.convertObj = convertObj;
-        this.convert = convert;
-        this.covertMethod = covertMethod;
-    }
-}
 

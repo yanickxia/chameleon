@@ -1,7 +1,6 @@
 package info.yannxia.java.chameleon;
 
 import info.yannxia.java.chameleon.annonation.Convertor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import java.lang.reflect.Method;
@@ -16,11 +15,6 @@ public class SpringConvertFactoryImpl implements ConvertFactory {
     private ConcurrentHashMap<ConvertKey, CovertInstant> keyCovertInstantConcurrentHashMap = new ConcurrentHashMap<>();
 
     public ApplicationContext applicationContext;
-
-    public SpringConvertFactoryImpl(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-        setup();
-    }
 
     private SpringConvertFactoryImpl() {
     }
@@ -42,12 +36,21 @@ public class SpringConvertFactoryImpl implements ConvertFactory {
         return null;
     }
 
+    public static SpringConvertFactoryImpl build(ApplicationContext applicationContext) {
+        SpringConvertFactoryImpl springConvertFactory = new SpringConvertFactoryImpl();
+        springConvertFactory.applicationContext = applicationContext;
+        springConvertFactory.setup();
+
+        return springConvertFactory;
+    }
+
+
     private void setup() {
         String[] beanNames = this.applicationContext.getBeanDefinitionNames();
         Arrays.stream(beanNames)
                 .forEach(beanName -> {
                     Object o = this.applicationContext.getBean(beanName);
-                    build(o.getClass());
+                    build(o);
                 });
     }
 

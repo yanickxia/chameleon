@@ -1,10 +1,7 @@
 package info.yannxia.java.chameleon;
 
-import info.yannxia.java.chameleon.annonation.Convertor;
 import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by yann on 2016/11/30.
@@ -25,20 +22,3 @@ public class ConvertFactoryTest {
 
 }
 
-class A {
-    String name;
-}
-
-class B {
-    String name;
-}
-
-class ConvertTestService {
-
-    @Convertor
-    public B toB(A a) {
-        B b = new B();
-        b.name = a.name;
-        return b;
-    }
-}
