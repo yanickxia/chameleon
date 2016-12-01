@@ -7,11 +7,10 @@ import org.junit.Test;
  * Created by yann on 2016/11/30.
  */
 public class ConvertFactoryTest {
-    ConvertFactory convertFactory;
 
     @Test
     public void convert() throws Exception {
-        convertFactory = ConvertFactoryImpl.build(new ConvertTestService());
+        ConvertFactory convertFactory = ConvertFactoryImpl.build(new ConvertTestService());
 
         ConvertTestService.A a = new ConvertTestService.A();
         a.name = "a";
