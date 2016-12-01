@@ -13,9 +13,15 @@ public class SpringConvertFactoryTest {
 
         ConvertFactory convertFactory = applicationContext.getBean(ConvertFactory.class);
 
-        A a = new A();
-        a.name = "test";
+        ConvertTestService.A a = new ConvertTestService.A();
+        a.name = "a";
 
-        Assert.assertTrue(convertFactory.convert(a, B.class).name.equals("test"));
+        ConvertTestService.B b = convertFactory.convert(ConvertTestService.B.class, a);
+        Assert.assertEquals(a.name, b.name);
+        b.name = "b";
+
+        ConvertTestService.C c = convertFactory.convert(ConvertTestService.C.class, a, b);
+        Assert.assertEquals(c.aName, a.name);
+        Assert.assertEquals(c.bName, b.name);
     }
 }

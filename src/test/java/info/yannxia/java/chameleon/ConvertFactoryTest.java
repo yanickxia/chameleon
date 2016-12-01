@@ -11,13 +11,19 @@ public class ConvertFactoryTest {
 
     @Test
     public void convert() throws Exception {
-        convertFactory = ConvertFactoryImpl.build(ConvertTestService.class);
+        convertFactory = ConvertFactoryImpl.build(new ConvertTestService());
 
-        A a = new A();
-        a.name = "1111";
+        ConvertTestService.A a = new ConvertTestService.A();
+        a.name = "a";
 
-        B b = convertFactory.convert(a, B.class);
-        Assert.assertEquals("1111", b.name);
+        ConvertTestService.B b = convertFactory.convert(ConvertTestService.B.class, a);
+        Assert.assertEquals(a.name, b.name);
+        b.name = "b";
+
+        ConvertTestService.C c = convertFactory.convert(ConvertTestService.C.class, a, b);
+        Assert.assertEquals(c.aName, a.name);
+        Assert.assertEquals(c.bName, b.name);
+
     }
 
 }

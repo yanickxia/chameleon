@@ -5,6 +5,5 @@ package info.yannxia.java.chameleon;
  */
 public interface ConvertFactory {
 
-    <T> T convert(Object a, Class<T> b);
-
+    <T> T convert(Class<T> expect, Object... params);
 }
