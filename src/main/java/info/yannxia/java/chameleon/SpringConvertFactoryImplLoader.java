@@ -7,6 +7,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import static info.yannxia.java.chameleon.ConvertFactory.SPRING_BEAN_NAME;
+
 @Component
 public class SpringConvertFactoryImplLoader implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -17,7 +19,7 @@ public class SpringConvertFactoryImplLoader implements ApplicationListener<Conte
 
         ConfigurableApplicationContext configContext = (ConfigurableApplicationContext) applicationContext;
         SingletonBeanRegistry beanRegistry = configContext.getBeanFactory();
-        beanRegistry.registerSingleton("convertFactory", springConvertFactory);
+        beanRegistry.registerSingleton(SPRING_BEAN_NAME, springConvertFactory);
     }
 
 }
