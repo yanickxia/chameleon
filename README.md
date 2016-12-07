@@ -5,7 +5,6 @@
 JDK1.8+
 
 
-
 ## WHAT
 一个Bean转换的小工具
 
@@ -20,3 +19,7 @@ Spring见： info.yannxia.java.chameleon.SpringConvertFactoryTest
 
 
 如果需要和Spring集成，需要注册 info.yannxia.java.chameleon.SpringConvertFactoryImplLoader 类，监听ContextRefreshedEvent 事件。
+
+
+## DEPEND
+可以作为jar依赖，详见[jitpack-github](https://jitpack.io/#yannxia/chameleon/0.1-SNAPSHOT)
