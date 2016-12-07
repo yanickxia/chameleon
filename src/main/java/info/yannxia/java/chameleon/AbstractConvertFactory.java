@@ -20,21 +20,19 @@ public abstract class AbstractConvertFactory implements ConvertFactory {
                 .map(Object::getClass)
                 .toArray(Class[]::new);
 
-        //get cached Covert
+        //get cached Converter
         ConvertKey convertKey = new ConvertKey(expect, paramClasses);
         CovertInstant covertInstant = keyCovertInstantConcurrentHashMap.get(convertKey);
 
         if (covertInstant == null) {
-            throw new RuntimeException("not found match convertor");
+            throw new RuntimeException("not found match converter");
         }
 
         try {
             return (T) covertInstant.covertMethod.invoke(covertInstant.convertObj, params);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("invoke convert function error", e);
         }
-
-        return null;
     }
 
     void setupObject(Object object) {
@@ -46,6 +44,11 @@ public abstract class AbstractConvertFactory implements ConvertFactory {
                     Class to = method.getReturnType();
                     ConvertKey convertKey = new ConvertKey(to, froms);
                     CovertInstant covertInstant = new CovertInstant(object, method);
+
+                    if (this.keyCovertInstantConcurrentHashMap.containsKey(convertKey)) {
+                        throw new IllegalArgumentException(String.format("already has [%s] -> [%s] method", froms, to));
+                    }
+
                     this.keyCovertInstantConcurrentHashMap.put(convertKey, covertInstant);
                 });
     }

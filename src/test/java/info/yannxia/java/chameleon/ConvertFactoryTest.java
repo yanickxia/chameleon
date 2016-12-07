@@ -25,5 +25,11 @@ public class ConvertFactoryTest {
 
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void test_error_covert_build(){
+        ConvertFactory convertFactory = ConvertFactoryImpl.build(
+                new ConvertTestService(), new ConvertTestService());
+    }
+
 }
 
