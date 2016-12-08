@@ -1,5 +1,6 @@
 #Chameleon
 
+[![Build Status](https://travis-ci.org/yannxia/chameleon.svg?branch=master)](https://travis-ci.org/yannxia/chameleon.svg?branch=master)
 
 ### PRE
 JDK1.8+
