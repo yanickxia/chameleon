@@ -24,3 +24,8 @@ Spring见： info.yannxia.java.chameleon.SpringConvertFactoryTest
 
 ## DEPEND
 可以作为jar依赖，详见[jitpack-github](https://jitpack.io/#yannxia/chameleon/0.1-SNAPSHOT)
+
+
+## NEXT
+- 兼容Spring的CoveterService
+- 独立Spring的更加优美的启动方式
