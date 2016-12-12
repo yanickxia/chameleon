@@ -3,7 +3,6 @@ jdk:
   - oraclejdk8
 script:
   - ./gradlew check
-post:
-  - if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
+  - ./gradlew jacocoTestReport
 after_success:
   - bash <(curl -s https://codecov.io/bash)
