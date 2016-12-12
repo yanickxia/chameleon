@@ -1,6 +1,7 @@
 #Chameleon
 
 [![Build Status](https://travis-ci.org/yannxia/chameleon.svg?branch=master)](https://travis-ci.org/yannxia/chameleon.svg?branch=master)
+[![Code Coverage](https://codecov.io/github/yannxia/chameleon/coverage.svg)](https://codecov.io/gh/yannxia/chameleon)
 
 ### PRE
 JDK1.8+
